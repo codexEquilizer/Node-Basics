@@ -1,0 +1,20 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="utf-8")
+        meta(name="viewport" content="width=device-width,initial-scale=1")
+        title #{pageTitle || '404 — Page Not Found'}
+        link(rel="stylesheet", href="/css/main.css")
+        //- Adding a hook/placeholder to set additional content coming from outside
+        block styles
+
+    body
+        //- include navbar.pug
+        header.main-header
+            .main-header__nav
+                ul.main-header__item-list
+                    li.main-header__item
+                        a(href="/", class=(path === '/' ? 'active': '')) Shop
+                    li.main-header__item
+                        a(href="/admin/add-product", class=(path === '/admin/add-product' ? 'active' : '')) Add Product
+        block content

@@ -25,11 +25,11 @@ module.exports = class Product {
     // products.push(this.title);
   }
 
-  static fetchAll() {
+  static fetchAll(callback) {
     const filePath = path.join(rootDir, "data", "products.json");
     fs.readFile(filePath, (err, fileContent) => {
-      if (err) return [];
-      return JSON.parse(fileContent);
+      if (err) callback([]);
+      callback(JSON.parse(fileContent));
     });
     // return products;
   }

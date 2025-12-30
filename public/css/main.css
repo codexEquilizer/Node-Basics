@@ -46,7 +46,7 @@ main {
 }
 
 .main-header__item a:hover,
-/* .main-header__item a:active, */
+.main-header__item a:active,
 .main-header__item a.active {
   color: #ffeb3b;
 }
@@ -90,6 +90,11 @@ main {
 .card__actions button,
 .card__actions a {
   margin: 0 0.25rem;
+}
+
+.product-item {
+  height: 25%;
+  width: 25%;
 }
 
 .btn {

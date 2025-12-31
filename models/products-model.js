@@ -2,7 +2,19 @@ const path = require("path");
 const fs = require("fs");
 const rootDir = require("../util/path");
 
-const products = [];
+// const products = [];
+
+//helper constant
+const FILE_PATH = path.join(rootDir, "data", "products.json");
+
+// helper Function
+const helper_getProductsFromFile = (callback) => {
+  /* To read the existing array of products, I need to read the file first  */
+  fs.readFile(FILE_PATH, (err, fileContent) => {
+    if (err) return callback([]);
+    callback(JSON.parse(fileContent));
+  });
+};
 
 module.exports = class Product {
   constructor(title) {
@@ -10,15 +22,9 @@ module.exports = class Product {
   }
 
   save() {
-    //storing in file
-    const filePath = path.join(rootDir, "data", "products.json");
-    fs.readFile(filePath, (err, fileContent) => {
-      let products = [];
-      if (!err) {
-        products = JSON.parse(fileContent);
-      }
+    helper_getProductsFromFile((products) => {
       products.push(this);
-      fs.writeFile(filePath, JSON.stringify(products), (err) => {
+      fs.writeFile(FILE_PATH, JSON.stringify(products), (err) => {
         console.log(err);
       });
     });
@@ -26,11 +32,7 @@ module.exports = class Product {
   }
 
   static fetchAll(callback) {
-    const filePath = path.join(rootDir, "data", "products.json");
-    fs.readFile(filePath, (err, fileContent) => {
-      if (err) callback([]);
-      callback(JSON.parse(fileContent));
-    });
+    helper_getProductsFromFile(callback);
     // return products;
   }
 };
